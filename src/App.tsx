@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 
 function App() {
-   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [canMove, setCanMove] = useState(true);
 
   useEffect(() => {
-    function handleMove(e:MouseEvent) {
+    function handleMove(e: MouseEvent) {
       setPosition({ x: e.clientX, y: e.clientY });
     }
-    
-    window.addEventListener('pointermove', handleMove);
-    return () => window.removeEventListener('pointermove', handleMove);
+
+    if (canMove) {
+      window.addEventListener('pointermove', handleMove);
+      return () => window.removeEventListener('pointermove', handleMove);
+    }
+
   }, []);
 
   return (
@@ -36,7 +39,7 @@ function App() {
         height: 40,
       }} />
     </>
-    )
+  )
 }
 
 export default App
