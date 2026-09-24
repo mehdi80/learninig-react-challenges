@@ -14,7 +14,7 @@ function App() {
       return () => window.removeEventListener('pointermove', handleMove);
     }
 
-  }, []);
+  }, [canMove]);
 
   return (
     <>
