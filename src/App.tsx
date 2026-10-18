@@ -1,31 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useWindowWidth } from './use-window-width';
 
 function Header() {
-  const [width, setWidth] = useState(window.innerWidth);
-  useEffect(() => {
-    function handleResize() {
-      setWidth(window.innerWidth);
-    }
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
+  const width = useWindowWidth();
   return <h1>{width < 600 ? '📱 Mobile header' : '🖥️ Desktop header'}</h1>;
 }
 
 function Sidebar() {
-  const [width, setWidth] = useState(window.innerWidth);
-  useEffect(() => {
-    function handleResize() {
-      setWidth(window.innerWidth);
-    }
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const width = useWindowWidth();
 
   if (width < 600) return null;
   return <aside>Sidebar ({width}px)</aside>;
