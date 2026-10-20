@@ -1,43 +1,9 @@
-import { useState, useEffect } from "react";
-import { useDebounce } from "./use-debounce-hook";
-// api.js (given, don't change)
-const USERS = ['Ali', 'Alireza', 'Amir', 'Maryam', 'Mehdi', 'Mohammad', 'Sara', 'Zahra'];
-
-function searchUsers(query: string): Promise<string[]> {
-  const delay = 200 + Math.random() * 1000; // random latency
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(USERS.filter((u) => u.toLowerCase().startsWith(query.toLowerCase())));
-    }, delay);
-  });
-}
-
-
+import { useState } from "react";
+import { useSearchUsers } from "./search-users";
 
 export default function App() {
   const [query, setQuery] = useState('');
-  const [users, setUsers] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const debouncedQuery = useDebounce(query, 300);
-
-  useEffect(() => {
-    setIsLoading(true);
-    let ignore = false;
-    
-      searchUsers(debouncedQuery).then((result) => {
-        if (!ignore) {
-          setUsers(result);
-          setIsLoading(false);
-        }
-      });
-    
-
-    return () => {
-      ignore = true
-    }
-  }, [debouncedQuery]);
-
+  const { users, isLoading } = useSearchUsers(query);
   return (
     <>
       <input
