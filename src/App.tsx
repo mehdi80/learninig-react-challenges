@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { useDebounce } from "./use-debounce-hook";
 // api.js (given, don't change)
 const USERS = ['Ali', 'Alireza', 'Amir', 'Maryam', 'Mehdi', 'Mohammad', 'Sara', 'Zahra'];
 
@@ -19,22 +19,24 @@ export default function App() {
   const [users, setUsers] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const debouncedQuery = useDebounce(query, 300);
+
   useEffect(() => {
     setIsLoading(true);
     let ignore = false;
-
-    searchUsers(query).then((result) => {
-      if (!ignore) {
-        setUsers(result);
-        setIsLoading(false);
-      }
-    });
-
+    
+      searchUsers(debouncedQuery).then((result) => {
+        if (!ignore) {
+          setUsers(result);
+          setIsLoading(false);
+        }
+      });
+    
 
     return () => {
       ignore = true
     }
-  }, [query]);
+  }, [debouncedQuery]);
 
   return (
     <>
