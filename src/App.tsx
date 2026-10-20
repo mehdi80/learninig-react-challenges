@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 // api.js (given, don't change)
 const USERS = ['Ali', 'Alireza', 'Amir', 'Maryam', 'Mehdi', 'Mohammad', 'Sara', 'Zahra'];
 
-function searchUsers(query:string): Promise<string[]> {
+function searchUsers(query: string): Promise<string[]> {
   const delay = 200 + Math.random() * 1000; // random latency
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -21,10 +21,19 @@ export default function App() {
 
   useEffect(() => {
     setIsLoading(true);
+    let ignore = false;
+
     searchUsers(query).then((result) => {
-      setUsers(result);
-      setIsLoading(false);
+      if (!ignore) {
+        setUsers(result);
+        setIsLoading(false);
+      }
     });
+
+
+    return () => {
+      ignore = true
+    }
   }, [query]);
 
   return (
