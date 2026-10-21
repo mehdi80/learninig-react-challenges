@@ -1,19 +1,20 @@
-import { BrowserRouter, Link, Route, Routes } from "react-router"
+import { BrowserRouter, NavLink, Route, Routes } from "react-router"
 import { Contact } from "./pages/Contact"
-import { Home } from "./pages/home"
-import { About } from "./pages/about"
+import { Home } from "./pages/Home"
+import { About } from "./pages/About"
 import { Products } from "./pages/Products"
 import { BikeProducts } from "./pages/Bike-products"
 import { CarProducts } from "./pages/Car-products"
+import { activeLinkStyle } from "./styles/active-link-style"
 
 function App() {
   return (
     <BrowserRouter>
       <nav>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
-        <Link to="/products">Products</Link>
+        <NavLink to="/" style={activeLinkStyle}>Home</NavLink>
+        <NavLink to="/about" style={activeLinkStyle}>About</NavLink>
+        <NavLink to="/contact" style={activeLinkStyle}>Contact</NavLink>
+        <NavLink to="/products" style={activeLinkStyle}>Products</NavLink>
       </nav>
 
       <Routes>
