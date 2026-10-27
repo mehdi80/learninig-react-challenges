@@ -6,6 +6,7 @@ import { Products } from "./pages/Products"
 import { BikeProducts } from "./pages/Bike-products"
 import { CarProducts } from "./pages/Car-products"
 import { activeLinkStyle } from "./styles/active-link-style"
+import { Product } from "./pages/Product"
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} >
           <Route path="cars" element={<CarProducts />} />
-          <Route path="bikes" element={<BikeProducts />} />  
+          <Route path="bikes" element={<BikeProducts />} /> 
+          <Route path=":pId" element={<Product />} /> 
         </Route>
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
